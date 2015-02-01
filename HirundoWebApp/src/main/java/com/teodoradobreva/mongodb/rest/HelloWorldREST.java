@@ -8,7 +8,7 @@ public class HelloWorldREST {
 
 	@GET
 	@Path("/hello")
-	public String responseMsg() {
+	public String sayHello() {
 		return "Hello";
 	}
 
