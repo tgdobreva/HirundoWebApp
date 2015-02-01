@@ -9,7 +9,7 @@ public class HelloWorldREST {
 	@GET
 	@Path("/hello")
 	public String sayHello() {
-		return "Hello asd";
+		return "Hello";
 	}
 
 }
