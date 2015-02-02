@@ -7,7 +7,6 @@ import org.mongodb.morphia.annotations.Property;
 @Entity(value = "messages")
 public class Message {
 	@Id
-	@Property("_id")
 	private String id;
 	
 	private String author;

@@ -10,6 +10,7 @@ import org.mongodb.morphia.Morphia;
 
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
+import com.teodoradobreva.mongodb.model.User;
 import com.teodoradobreva.mongodb.repository.DatastoreImpl;
 
 public class ServletContextListenerImpl implements ServletContextListener {
