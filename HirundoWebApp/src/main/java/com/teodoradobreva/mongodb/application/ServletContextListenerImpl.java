@@ -5,12 +5,6 @@ import java.net.UnknownHostException;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.Morphia;
-
-import com.mongodb.DB;
-import com.mongodb.MongoClient;
-import com.teodoradobreva.mongodb.model.User;
 import com.teodoradobreva.mongodb.repository.DatastoreImpl;
 
 public class ServletContextListenerImpl implements ServletContextListener {
