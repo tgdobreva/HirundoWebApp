@@ -23,6 +23,8 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="./assets/theme/dist/js/sb-admin-2.js"></script>
+    
+    <script type='text/javascript' src='./assets/js/knockout-3.2.0.js'></script>
 
 </body>
 </html>

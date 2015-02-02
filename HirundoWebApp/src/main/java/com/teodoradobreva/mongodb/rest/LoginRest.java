@@ -7,16 +7,9 @@ import javax.ws.rs.Path;
 public class LoginRest {
 
 	@GET
-	@Path("/hello")
-	public String sayHello() {
-		return "Hello asd";
-	}
-	
-	@GET
-	@Path("/kur")
-	public String kur()
-	{
-		return "kur";
+	@Path("getUser")
+	public String getLoggedInUser() {
+		return "asd";
 	}
 
 }
