@@ -23,18 +23,19 @@
                         <h3 class="panel-title">Sign In</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form">
+                        <form id="loginForm" role="form" method=post>
                             <fieldset>
                                 <div class="form-group">
-                                    <input type="email" autofocus="" name="email" placeholder="E-mail" class="form-control">
+                                    <input type="email" autofocus="" name="email" placeholder="E-mail" 
+                                    	class="form-control" data-bind='value: email' required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" value="" name="password" placeholder="Password" class="form-control">
+                                    <input type="password" value="" name="password" placeholder="Password" 
+                                    	class="form-control" data-bind='value: password' required>
                                 </div>
-                                <!-- TODO -->
                                 <div class="form-group">
-                                	<button class="btn btn-default">Register</button>
                                 	<button class="btn btn-success">Login</button>
+                                	<button id="registerBtn" type="button" class="btn btn-default">Register</button>
                                	</div>
                             </fieldset>
                         </form>
@@ -46,4 +47,28 @@
 
 	<jsp:include page="js.jsp" />
 </body>
+
+<script>
+	$(document).ready(function()  {
+		var ViewModel = function(email, password) {
+		    this.email = ko.observable(email);
+		    this.password = ko.observable(password);
+		    
+		};
+		
+		var model = new ViewModel("", "");
+		ko.applyBindings(model);
+		
+		$('#registerBtn').click(function() {
+			window.location.href = "register.jsp";
+		});
+		
+		$('#loginForm').submit(function(event) {
+			event.preventDefault();
+		});
+		
+		
+	});
+	  
+</script>
 </html>

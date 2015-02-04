@@ -63,16 +63,27 @@
 		    this.username = ko.observable(username);
 		    this.password = ko.observable(password);
 		    this.repeatedPassword = ko.observable(repeatedPassword);
+		    
+		    this.passwordsEqual = function() {
+		    	return password == repeatedPassword;
+		    }
 		};
 		
 		var model = new ViewModel("", "", "", "");
 		ko.applyBindings(model);
 		
-		$('#registerForm').submit(function() {
+		$('#registerForm').submit(function(event) {
 
+			event.preventDefault();
+			
+			if (!model.passwordsEqual()) {
+				alert("Passwords are not equal!");
+				return false;
+			}
+			
 			$.ajax({
 				type: "POST",
-				url: "/rest/registration/register",
+				url: "/HirundoWebApp/rest/registration/register",
 				data: {
 					email: model.email(),
 					username: model.username(),
@@ -86,8 +97,8 @@
 					alert("fatal error");
 				}
 				});
-
-		   }); 
+			
+	   	}); 
    });
 	  
    

@@ -1,5 +1,7 @@
 package com.teodoradobreva.mongodb.model;
 
+import java.util.List;
+
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Property;
@@ -16,9 +18,14 @@ public class Message {
 	@Property("published_place")
 	private String publishedPlace;
 	
-	@Property("published_date")
+	//TODO add index
+	@Property("published_date")	
 	private String publishedDate;
-
+	
+	//TODO add index
+	@Property("hashtags")
+	List<String> hashtags;
+	
 	public String getId() {
 		return id;
 	}
@@ -57,6 +64,14 @@ public class Message {
 
 	public void setPublishedDate(String publishedDate) {
 		this.publishedDate = publishedDate;
+	}
+
+	public List<String> getHashtags() {
+		return hashtags;
+	}
+
+	public void setHashtags(List<String> hashtags) {
+		this.hashtags = hashtags;
 	}
 	
 }
