@@ -16,10 +16,6 @@
     	<url-pattern>/rest/*</url-pattern>
   	</servlet-mapping>
   
-  	<listener>
-  		<listener-class>com.teodoradobreva.mongodb.application.ServletContextListenerImpl</listener-class>
-  	</listener>
-  
 	<welcome-file-list>     
 	    <welcome-file>login.jsp</welcome-file> 
 	</welcome-file-list>

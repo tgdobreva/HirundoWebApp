@@ -4,19 +4,15 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 
-import org.mongodb.morphia.Datastore;
-
-import com.google.inject.Inject;
+import com.teodoradobreva.mongodb.dao.UserDao;
 import com.teodoradobreva.mongodb.exception.EmailExistsException;
 import com.teodoradobreva.mongodb.exception.PasswordsNotEqualException;
 import com.teodoradobreva.mongodb.exception.UsernameExistsException;
-import com.teodoradobreva.mongodb.model.User;
 
 @Path("/registration")
 public class RegistrationRest {
 	
-	@Inject
-	public Datastore datastore;
+    private UserDao userDao;
 	
 	@POST
 	@Path("/register")
@@ -33,14 +29,16 @@ public class RegistrationRest {
 		if (!passwordsEqual(password, repeatedPassword)) {
 			throw new PasswordsNotEqualException();
 		}
+		//TODO save
+		
 	}
 	
 	private boolean emailExists(String email) {
-		return datastore.find(User.class).filter("email", email).get() != null;
+		return userDao.emailExists(email);
 	}
 
 	private boolean usernameExists(String username) {
-		return !datastore.find(User.class, "username", username).asList().isEmpty();
+		return userDao.usernameExists(username);
 	}
 
 	private boolean passwordsEqual(String password, String repeatedPassword) {
