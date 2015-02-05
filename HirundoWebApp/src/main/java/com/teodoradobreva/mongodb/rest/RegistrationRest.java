@@ -4,15 +4,21 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 
-import com.teodoradobreva.mongodb.dao.UserDao;
+import com.sun.jersey.api.core.InjectParam;
 import com.teodoradobreva.mongodb.exception.EmailExistsException;
 import com.teodoradobreva.mongodb.exception.PasswordsNotEqualException;
 import com.teodoradobreva.mongodb.exception.UsernameExistsException;
+import com.teodoradobreva.mongodb.service.UserService;
 
 @Path("/registration")
 public class RegistrationRest {
 	
-    private UserDao userDao;
+    private UserService userService;
+	
+	@InjectParam
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
 	
 	@POST
 	@Path("/register")
@@ -30,21 +36,19 @@ public class RegistrationRest {
 			throw new PasswordsNotEqualException();
 		}
 		//TODO save
-		
+		int i = 5;
 	}
 	
 	private boolean emailExists(String email) {
-		return userDao.emailExists(email);
+		return userService.emailExists(email);
 	}
 
 	private boolean usernameExists(String username) {
-		return userDao.usernameExists(username);
+		return userService.usernameExists(username);
 	}
 
 	private boolean passwordsEqual(String password, String repeatedPassword) {
 		return password.equals(repeatedPassword);
 	}
-	
-	
 	
 }
