@@ -63,7 +63,7 @@
 										<i class="fa fa-times-circle"  data-bind="visible: !user.verified"> </i>
 									</span>
 								</div>
-								<button class="btn btn-primary"> Follow </button>
+								<button class="btn btn-primary" data-bind="click: $parent.follow"> Follow </button>
 								<hr/>
 							</div>
 						</div>
@@ -108,10 +108,51 @@
 <script>
    $(document).ready(function()  {
 	   	var ViewModel = function() {
-			this.usersNotFollowed = ko.observableArray();
-			this.usersFollowed = ko.observableArray();
-			this.timelineMessages = ko.observableArray();
-		    this.hashtags = ko.observableArray();
+	   		var self = this;
+	   		self.usersNotFollowed = ko.observableArray();
+	   		self.usersFollowed = ko.observableArray();
+	   		self.timelineMessages = ko.observableArray();
+	   		self.hashtags = ko.observableArray();
+		    
+	   		self.follow = function(user) {
+	   			debugger;
+	   			var username = user.username();
+	   			$.ajax({
+					type: "POST",
+					url: "/HirundoWebApp/rest/users/follow",
+					data: {
+						username: username,
+					},
+					dataType: "json",
+					success: function(data) {
+						self.usersFollowed.push(user);
+			   			self.usersNotFollowed.remove(user);
+					},
+					error: function(jqXHR, textStatus, errorThrown) {
+						alert("Error following user!");
+					}
+					});
+         	}
+			
+	   		self.unfollow = function(user) {
+	   			debugger;
+	   			var username = user.username();
+	   			$.ajax({
+					type: "POST",
+					url: "/HirundoWebApp/rest/users/unfollow",
+					data: {
+						username: username,
+					},
+					dataType: "json",
+					success: function(data) {
+						self.usersNotFollowed.push(user);
+			   			self.usersFollowed.remove(user);
+					},
+					error: function(jqXHR, textStatus, errorThrown) {
+						alert("Error unfollowing user!");
+					}
+					});
+	   		}
 		};
 		
 		var model = new ViewModel();

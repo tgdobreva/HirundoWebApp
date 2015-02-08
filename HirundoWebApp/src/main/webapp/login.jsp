@@ -51,9 +51,9 @@
 <script>
 	$(document).ready(function()  {
 		var ViewModel = function(email, password) {
-		    this.email = ko.observable(email);
-		    this.password = ko.observable(password);
-		    
+			var self = this;
+			self.email = ko.observable(email);
+			self.password = ko.observable(password);
 		};
 		
 		var model = new ViewModel("", "");

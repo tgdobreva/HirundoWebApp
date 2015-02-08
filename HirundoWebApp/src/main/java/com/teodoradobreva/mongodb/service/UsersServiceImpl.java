@@ -26,13 +26,18 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
-	public void follow(User follower, User followed) {
-		usersDao.follow(follower, followed);
+	public List<User> getUsersFollowed(User userFrom) {
+		return usersDao.getUsersFollowed(userFrom);
+	}
+	
+	@Override
+	public void follow(User follower, User toFollow) {
+		usersDao.follow(follower, toFollow);
 	}
 
 	@Override
-	public List<User> getUsersFollowed(User userFrom) {
-		return usersDao.getUsersFollowed(userFrom);
+	public void unfollow(User follower, User followed) {
+		usersDao.unfollow(follower, followed);
 	}
 
 }

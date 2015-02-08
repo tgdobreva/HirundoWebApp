@@ -43,14 +43,14 @@ public class UsersDaoImpl extends BasicDAO<User, ObjectId> implements UsersDao {
 	}
 
 	@Override
-	public void follow(User follower, User followed) {
+	public void follow(User follower, User toFollow) {
 		Query<User> getFollowerQuery = this.createQuery().field("username")
 				.equal(follower.getUsername());
 		UpdateOperations<User> insertUserFollowedQuery = this
 				.createUpdateOperations().add("users_followed",
-						followed.getUsername(), false);
+						toFollow.getUsername(), false);
 		this.update(getFollowerQuery, insertUserFollowedQuery);
-		this.setVerified(followed);
+		this.setVerified(toFollow);
 	}
 
 	private void setVerified(User user) {
@@ -72,6 +72,16 @@ public class UsersDaoImpl extends BasicDAO<User, ObjectId> implements UsersDao {
 	}
 
 	@Override
+	public void unfollow(User follower, User followed) {
+		Query<User> getFollowerQuery = this.createQuery().field("username")
+				.equal(follower.getUsername());
+		UpdateOperations<User> removeUserFollowedQuery = this
+				.createUpdateOperations().removeAll("users_followed",
+						followed.getUsername());
+		this.update(getFollowerQuery, removeUserFollowedQuery);
+	}
+	
+	@Override
 	public List<User> getUsersFollowed(User userFrom) {
 		Query<User> getUsersFollowedQuery = this.createQuery()
 				.field("username").equal(userFrom.getUsername())
@@ -84,4 +94,5 @@ public class UsersDaoImpl extends BasicDAO<User, ObjectId> implements UsersDao {
 		List<User> usersFollowed = this.find(getUsersQuery).asList();
 		return usersFollowed;
 	}
+
 }

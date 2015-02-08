@@ -33,7 +33,7 @@ public class MessageRest {
 			@FormParam("place") String place) {
 		String author = "tgdobreva"; // TODO
 		content = content.trim();
-		if (content.length() > 140) {
+		if (content.length() > HirundoUtilities.MAXIMUM_MESSAGE_SIZE) {
 			throw new MessageTooLongException();
 		}
 		place = place.trim();

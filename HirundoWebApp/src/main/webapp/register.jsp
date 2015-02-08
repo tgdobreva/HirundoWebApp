@@ -59,14 +59,15 @@
 <script>
    $(document).ready(function()  {
 	   var ViewModel = function(email, username, password, repeatedPassword) {
-		    this.email = ko.observable(email);
-		    this.username = ko.observable(username);
-		    this.password = ko.observable(password);
-		    this.repeatedPassword = ko.observable(repeatedPassword);
+		   var self = this;
+		   self.email = ko.observable(email);
+		   self.username = ko.observable(username);
+		   self.password = ko.observable(password);
+		   self.repeatedPassword = ko.observable(repeatedPassword);
 		    
-		    this.passwordsEqual = function() {
-		    	return this.password() == this.repeatedPassword();
-		    }
+		   self.passwordsEqual = function() {
+	    		return self.password() == self.repeatedPassword();
+		   }
 		};
 		
 		var model = new ViewModel("", "", "", "");

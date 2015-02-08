@@ -53,8 +53,9 @@
 <script>
 $(document).ready(function()  {
 	var ViewModel = function(message, place) {
-		this.message = ko.observable(message);
-	    this.place = ko.observable(place);
+		var self = this;
+		self.message = ko.observable(message);
+		self.place = ko.observable(place);
 	}
 	
 	var model = new ViewModel("", "");
