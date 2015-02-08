@@ -65,7 +65,7 @@
 		    this.repeatedPassword = ko.observable(repeatedPassword);
 		    
 		    this.passwordsEqual = function() {
-		    	return password == repeatedPassword;
+		    	return this.password() == this.repeatedPassword();
 		    }
 		};
 		
@@ -90,11 +90,12 @@
 					password: model.password(),
 					repeatedPassword: model.repeatedPassword(),
 				},
+				dataType: "json",
 				success: function() {
 					window.location.href = "index.jsp";
 				},
 				error: function(jqXHR, textStatus, errorThrown) {
-					alert("fatal error");
+					alert(jqXHR.responseText);
 				}
 				});
 			

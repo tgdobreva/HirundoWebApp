@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+    
+    <bean id="mongoClient" class="com.mongodb.MongoClient">
+        <constructor-arg value="localhost"></constructor-arg>
+        <constructor-arg value="27017"></constructor-arg>
+    </bean>
+    
+    <bean id="morphia" class="org.mongodb.morphia.Morphia"/>
+    
+    <bean id="registrationService" class="com.teodoradobreva.mongodb.service.RegistrationServiceImpl">
+    	<property name="registrationDao">
+		    <bean id="registrationDao" class="com.teodoradobreva.mongodb.dao.RegistrationDaoImpl">
+		    	<constructor-arg ref="mongoClient"></constructor-arg>
+		        <constructor-arg ref="morphia"></constructor-arg>
+		        <constructor-arg value="hirundo"></constructor-arg>
+		    </bean> 
+    	</property>
+    </bean>
+    
+    <bean id="loginService" class="com.teodoradobreva.mongodb.service.LoginServiceImpl">
+    	<property name="loginDao">
+		    <bean id="loginDao" class="com.teodoradobreva.mongodb.dao.LoginDaoImpl">
+		    	<constructor-arg ref="mongoClient"></constructor-arg>
+		        <constructor-arg ref="morphia"></constructor-arg>
+		        <constructor-arg value="hirundo"></constructor-arg>
+		    </bean> 
+    	</property>
+    </bean>
+    
+    <bean id="userService" class="com.teodoradobreva.mongodb.service.UserServiceImpl">
+    	<property name="userDao">
+		    <bean id="userDao" class="com.teodoradobreva.mongodb.dao.UserDaoImpl">
+		    	<constructor-arg ref="mongoClient"></constructor-arg>
+		        <constructor-arg ref="morphia"></constructor-arg>
+		        <constructor-arg value="hirundo"></constructor-arg>
+		    </bean> 
+    	</property>
+    </bean>
+    
+    <bean id="messageService" class="com.teodoradobreva.mongodb.service.MessageServiceImpl">
+    	<property name="messageDao">
+		    <bean id="messageDao" class="com.teodoradobreva.mongodb.dao.MessageDaoImpl">
+		    	<constructor-arg ref="mongoClient"></constructor-arg>
+		        <constructor-arg ref="morphia"></constructor-arg>
+		        <constructor-arg value="hirundo"></constructor-arg>
+		    </bean> 
+    	</property>
+    </bean>
+    
+</beans>

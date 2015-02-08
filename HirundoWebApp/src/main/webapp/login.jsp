@@ -65,8 +65,26 @@
 		
 		$('#loginForm').submit(function(event) {
 			event.preventDefault();
+			login();
 		});
 		
+		var login = function() {
+			$.ajax({
+				type: "POST",
+				url: "/HirundoWebApp/rest/login/login",
+				data: {
+					email: model.email(),
+					password: model.password(),
+				},
+				dataType: "json",
+				success: function() {
+					window.location.href = "index.jsp";
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					alert(jqXHR.responseText);
+				}
+				});
+		}
 		
 	});
 	  

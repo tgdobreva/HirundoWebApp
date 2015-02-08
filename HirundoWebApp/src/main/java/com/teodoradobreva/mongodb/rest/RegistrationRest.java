@@ -8,16 +8,17 @@ import com.sun.jersey.api.core.InjectParam;
 import com.teodoradobreva.mongodb.exception.EmailExistsException;
 import com.teodoradobreva.mongodb.exception.PasswordsNotEqualException;
 import com.teodoradobreva.mongodb.exception.UsernameExistsException;
-import com.teodoradobreva.mongodb.service.UserService;
+import com.teodoradobreva.mongodb.model.User;
+import com.teodoradobreva.mongodb.service.RegistrationService;
 
 @Path("/registration")
 public class RegistrationRest {
 	
-    private UserService userService;
+    private RegistrationService registrationService;
 	
 	@InjectParam
-	public void setUserService(UserService userService) {
-		this.userService = userService;
+	public void setRegistrationService(RegistrationService registrationService) {
+		this.registrationService = registrationService;
 	}
 	
 	@POST
@@ -26,25 +27,29 @@ public class RegistrationRest {
 			@FormParam("username") String username,
 			@FormParam("password") String password,
 			@FormParam("repeatedPassword") String repeatedPassword) {
+		if (!passwordsEqual(password, repeatedPassword)) {
+			throw new PasswordsNotEqualException();
+		}
 		if (emailExists(email)) {
 			throw new EmailExistsException();
 		}
 		if (usernameExists(username)) {
 			throw new UsernameExistsException();
 		}
-		if (!passwordsEqual(password, repeatedPassword)) {
-			throw new PasswordsNotEqualException();
-		}
-		//TODO save
-		int i = 5;
+		User user = new User(email, username, password);
+		save(user);
 	}
 	
+	private void save(User user) {
+		registrationService.register(user);
+	}
+
 	private boolean emailExists(String email) {
-		return userService.emailExists(email);
+		return registrationService.emailExists(email);
 	}
 
 	private boolean usernameExists(String username) {
-		return userService.usernameExists(username);
+		return registrationService.usernameExists(username);
 	}
 
 	private boolean passwordsEqual(String password, String repeatedPassword) {

@@ -1,12 +1,14 @@
 package com.teodoradobreva.mongodb.service;
 
+import java.util.List;
+
 import com.sun.jersey.api.core.InjectParam;
 import com.teodoradobreva.mongodb.dao.UserDao;
 import com.teodoradobreva.mongodb.model.User;
 
 public class UserServiceImpl implements UserService {
 
-	private UserDao userDao;
+private UserDao userDao;
 	
 	@InjectParam
 	public void setUserDao(UserDao userDao) {
@@ -14,18 +16,18 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public boolean emailExists(String email) {
-		return userDao.emailExists(email);
+	public User getUserByUsername(String username) {
+		return userDao.getUserByUsername(username);
 	}
 
 	@Override
-	public boolean usernameExists(String email) {
-		return userDao.usernameExists(email);
+	public List<User> getAllUsersExcept(User user) {
+		return userDao.getAllUsersExcept(user);
 	}
 
 	@Override
-	public boolean register(User user) {
-		return userDao.register(user);
+	public void follow(User follower, User followed) {
+		userDao.follow(follower, followed);
 	}
 
 }

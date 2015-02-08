@@ -31,7 +31,20 @@ public class User {
 	public User() {
 		this("", "", "", new Date(), new ArrayList<String>(), false);
 	}
+	
+	public User(String email, String password) {
+		this(email, "", password, new Date(), new ArrayList<String>(), false);
+	}
 
+	public User(String email, String username, String password) {
+		this(email, username, password, new Date(), new ArrayList<String>(), false);
+	}
+	
+	public User(User user) {
+		this(user.getEmail(), user.getUsername(), user.getPassword(),
+				user.getRegistrationDate(), user.getUsersFollowed(), user.isVerified());
+	}
+	
 	public User(String email, String username, String password,
 			Date registrationDate, List<String> usersFollowed, boolean verified) {
 		super();

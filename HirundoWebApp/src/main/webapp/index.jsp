@@ -27,6 +27,23 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">Timeline</h1>
+					
+					<div class="form-group" data-bind="foreach: {data: timelineMessages, as: 'timelineMessage'}">
+						<div class="form-group">
+							<span>
+								<span><strong>Author: </strong></span>
+								<span data-bind="text: timelineMessage.author" > </span>
+							</span>
+						</div>
+						<div class="form-group">
+							<span>
+								<span><strong>Message: </strong></span>
+								<span data-bind="text: timelineMessage.content" > </span>
+							</span>
+						</div>
+						<hr/>
+					</div>
+					
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -39,5 +56,38 @@
     <jsp:include page="js.jsp" />
 
 </body>
+
+<script>
+   $(document).ready(function()  {
+	   var ViewModel = function() {
+		    this.timelineMessages = ko.observableArray([]);
+		    this.hashtags = ko.observableArray();
+		};
+		
+		var model = new ViewModel();
+		ko.applyBindings(model);
+		
+		loadTimeline();
+		setInterval(loadTimeline, 30000);
+		
+		function loadTimeline() {
+			var hashtags = model.hashtags();
+			$.ajax({
+				type: "POST",
+				url: "/HirundoWebApp/rest/message/get",
+				data: {
+					hashtags: hashtags,
+				},
+				dataType: "json",
+				success: function(data) {
+					model.timelineMessages(data);
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					alert(jqXHR.responseText);
+				}
+				});
+		}
+   });
+</script>
 
 </html>

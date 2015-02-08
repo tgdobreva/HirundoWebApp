@@ -1,6 +1,10 @@
 package com.teodoradobreva.mongodb.model;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
@@ -10,22 +14,49 @@ import org.mongodb.morphia.annotations.Property;
 public class Message {
 	@Id
 	private String id;
-	
+
 	private String author;
-	
+
 	private String content;
-	
+
 	@Property("published_place")
 	private String publishedPlace;
-	
-	//TODO add index
-	@Property("published_date")	
-	private String publishedDate;
-	
-	//TODO add index
+
+	// TODO add index
+	@Property("published_date")
+	private Date publishedDate;
+
+	// TODO add index
 	@Property("hashtags")
 	List<String> hashtags;
+
+	public Message() {
+		this("", "", "", new Date());
+	}
 	
+	public Message(String content,
+			String publishedPlace, Date publishedDate) {
+		this("", content, publishedPlace, publishedDate);
+	}
+
+	public Message(String author, String content,
+			String publishedPlace, Date publishedDate) {
+		setAuthor(author);
+		setContent(content);
+		setPublishedPlace(publishedPlace);
+		setPublishedDate(publishedDate);
+		List<String> hashtags = new ArrayList<String>();
+
+		String regexPattern = "(#\\w+)";
+		Pattern pattern = Pattern.compile(regexPattern);
+		Matcher matcher = pattern.matcher(content);
+		while (matcher.find()) {
+			String hashtag = matcher.group(1);
+			hashtags.add(hashtag);
+		}
+		setHashtags(hashtags);
+	}
+
 	public String getId() {
 		return id;
 	}
@@ -58,11 +89,11 @@ public class Message {
 		this.publishedPlace = publishedPlace;
 	}
 
-	public String getPublishedDate() {
+	public Date getPublishedDate() {
 		return publishedDate;
 	}
 
-	public void setPublishedDate(String publishedDate) {
+	public void setPublishedDate(Date publishedDate) {
 		this.publishedDate = publishedDate;
 	}
 
@@ -73,5 +104,5 @@ public class Message {
 	public void setHashtags(List<String> hashtags) {
 		this.hashtags = hashtags;
 	}
-	
+
 }
