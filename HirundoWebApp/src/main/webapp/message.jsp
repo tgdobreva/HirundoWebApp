@@ -22,15 +22,15 @@
 		<div id="page-wrapper">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header">Blank</h1>
-					<div class="panel panel-default">
+					<h1 class="page-header">New Message</h1>
+					<div class="panel panel-primary">
                     	<div class="panel-heading"> Write new message </div>
                     	<div class="panel-body">
 		                    <form id="messageForm" role="form" method=post>
 								<div class="form-group">
 									<label>Message: </label>
 									<input id="message" class="form-control" placeholder="Enter message" required
-										data-bind='value: message'>
+										data-bind='value: message' maxlength="140">
 								</div>
 								
 								<div class="form-group">
@@ -38,7 +38,7 @@
 									<input id="place" class="form-control" placeholder="Enter place"
 										data-bind='value: place'>
 								</div>
-	                        	<button class="btn btn-success">Send</button>
+	                        	<button class="btn btn-primary">Submit</button>
 							</form>
 						</div>
 					</div>
@@ -65,19 +65,25 @@ $(document).ready(function()  {
 		event.preventDefault();
 		event.stopPropagation();
 
-		if (!model.message()) {
+		var message = model.message().trim();
+		if (!message) {
+			alert("Cannot submit empty message!")
+			return false;
+		}
+		if (message.length > 140) {
+			alert("Message must be maximum 140 symbols!");
 			return false;
 		}
 		saveMessage();
    	}); 
 	
 	var saveMessage = function() {
-		var message = model.message();
-		var place = model.place();
+		var message = model.message().trim();
+		var place = model.place().trim();
 		place = place ? place : undefined;
 		$.ajax({
 			type: "POST",
-			url: "/HirundoWebApp/rest/message/insert",
+			url: "/HirundoWebApp/rest/messages/insert",
 			data: {
 				message: message,
 				place: place,

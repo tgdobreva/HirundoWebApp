@@ -32,9 +32,9 @@
     	</property>
     </bean>
     
-    <bean id="userService" class="com.teodoradobreva.mongodb.service.UserServiceImpl">
-    	<property name="userDao">
-		    <bean id="userDao" class="com.teodoradobreva.mongodb.dao.UserDaoImpl">
+    <bean id="usersService" class="com.teodoradobreva.mongodb.service.UsersServiceImpl">
+    	<property name="usersDao">
+		    <bean id="usersDao" class="com.teodoradobreva.mongodb.dao.UsersDaoImpl">
 		    	<constructor-arg ref="mongoClient"></constructor-arg>
 		        <constructor-arg ref="morphia"></constructor-arg>
 		        <constructor-arg value="hirundo"></constructor-arg>

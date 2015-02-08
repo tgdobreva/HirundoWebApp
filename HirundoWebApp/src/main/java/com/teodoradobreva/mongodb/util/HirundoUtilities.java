@@ -3,14 +3,11 @@ package com.teodoradobreva.mongodb.util;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import com.sun.jersey.api.core.InjectParam;
-import com.teodoradobreva.mongodb.model.User;
-import com.teodoradobreva.mongodb.service.UserService;
-
 public class HirundoUtilities {
 	
 	public static final int FOLLOWERS_NEEDED_FOR_VERIFIED = 10;
 	public static final int MESSAGES_TO_GET_COUNT = 50;
+	public static final int MAXIMUM_MESSAGE_SIZE = 140;
 	
 	public static String getHash(String plainText) {
 		MessageDigest messageDigest = null;

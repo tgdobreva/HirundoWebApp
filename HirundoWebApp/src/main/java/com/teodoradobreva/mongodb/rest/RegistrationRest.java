@@ -1,5 +1,7 @@
 package com.teodoradobreva.mongodb.rest;
 
+import java.util.Date;
+
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -37,6 +39,7 @@ public class RegistrationRest {
 			throw new UsernameExistsException();
 		}
 		User user = new User(email, username, password);
+		user.setRegistrationDate(new Date());
 		save(user);
 	}
 	

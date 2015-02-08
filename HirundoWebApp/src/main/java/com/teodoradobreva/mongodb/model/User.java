@@ -37,7 +37,7 @@ public class User {
 	}
 
 	public User(String email, String username, String password) {
-		this(email, username, password, new Date(), new ArrayList<String>(), false);
+		this(email, username, password, null, new ArrayList<String>(), false);
 	}
 	
 	public User(User user) {

@@ -11,12 +11,13 @@ import javax.ws.rs.Path;
 
 import com.google.gson.Gson;
 import com.sun.jersey.api.core.InjectParam;
+import com.teodoradobreva.mongodb.exception.MessageTooLongException;
 import com.teodoradobreva.mongodb.model.Message;
 import com.teodoradobreva.mongodb.model.User;
 import com.teodoradobreva.mongodb.service.MessageService;
 import com.teodoradobreva.mongodb.util.HirundoUtilities;
 
-@Path("/message")
+@Path("/messages")
 public class MessageRest {
 
 	private MessageService messageService;
@@ -31,6 +32,11 @@ public class MessageRest {
 	public void insertMessage(@FormParam("message") String content,
 			@FormParam("place") String place) {
 		String author = "tgdobreva"; // TODO
+		content = content.trim();
+		if (content.length() > 140) {
+			throw new MessageTooLongException();
+		}
+		place = place.trim();
 		Message message = new Message(author, content, place, new Date());
 		messageService.insert(message);
 	}

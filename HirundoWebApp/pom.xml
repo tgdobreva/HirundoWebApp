@@ -14,70 +14,61 @@
 	</repositories>
  
  	<properties>
-        <org.springframework.version>3.0.5.RELEASE</org.springframework.version>
+        <springframework.version>4.0.2.RELEASE</springframework.version>
     </properties>
  
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-core</artifactId>
-                <version>${org.springframework.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-beans</artifactId>
-                <version>${org.springframework.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-web</artifactId>
-                <version>${org.springframework.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-context</artifactId>
-                <version>${org.springframework.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring</artifactId>
-                <version>${org.springframework.version}</version>
-            </dependency>
+            <!-- spring -->
+			<dependency>
+			    <groupId>org.springframework</groupId>
+			    <artifactId>spring-core</artifactId>
+			    <version>${springframework.version}</version>
+			</dependency>
+			<dependency>
+			    <groupId>org.springframework</groupId>
+			    <artifactId>spring-expression</artifactId>
+			    <version>${springframework.version}</version>
+			</dependency>
+			<dependency>
+			    <groupId>org.springframework</groupId>
+			    <artifactId>spring-beans</artifactId>
+			    <version>${springframework.version}</version>
+			</dependency>
+			<dependency>
+			    <groupId>org.springframework</groupId>
+			    <artifactId>spring-aop</artifactId>
+			    <version>${springframework.version}</version>
+			</dependency>
+			<dependency>
+			    <groupId>org.springframework</groupId>
+			    <artifactId>spring-context</artifactId>
+			    <version>${springframework.version}</version>
+			</dependency>
+			<dependency>
+			    <groupId>org.springframework</groupId>
+			    <artifactId>spring-context-support</artifactId>
+			    <version>${springframework.version}</version>
+			</dependency>
+			<dependency>
+			    <groupId>org.springframework</groupId>
+			    <artifactId>spring-web</artifactId>
+			    <version>${springframework.version}</version>
+			</dependency>
+			<dependency>
+			    <groupId>org.springframework</groupId>
+			    <artifactId>spring-orm</artifactId>
+			    <version>${springframework.version}</version>
+			</dependency>
+			<dependency>
+			    <groupId>org.springframework</groupId>
+			    <artifactId>spring-webmvc</artifactId>
+			    <version>${springframework.version}</version>
+			</dependency>
+			
         </dependencies>
     </dependencyManagement>
 	<dependencies>
- 
- 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-			<version>${org.springframework.version}</version>
-		</dependency>
-		<!-- Spring Security -->
-		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-core</artifactId>
-		    <version>${org.springframework.version}</version>
-		    <type>jar</type>
-		</dependency>
-		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-web</artifactId>
-		    <version>${org.springframework.version}</version>
-		    <type>jar</type>
-		</dependency>
-		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-config</artifactId>
-		    <version>${org.springframework.version}</version>
-		    <type>jar</type>
-		</dependency>
-		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-taglibs</artifactId>
-		    <version>${org.springframework.version}</version>
-		    <type>jar</type>
-		</dependency>
  
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
@@ -135,5 +126,19 @@
         </dependency>
  
 	</dependencies>
+	
+	<build>
+     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.2</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 	
 </project>

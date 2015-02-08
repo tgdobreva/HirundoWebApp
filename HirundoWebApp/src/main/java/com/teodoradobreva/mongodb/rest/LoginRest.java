@@ -10,23 +10,17 @@ import com.sun.jersey.api.core.InjectParam;
 import com.teodoradobreva.mongodb.exception.WrongEmailOrPasswordException;
 import com.teodoradobreva.mongodb.model.User;
 import com.teodoradobreva.mongodb.service.LoginService;
-import com.teodoradobreva.mongodb.service.UserService;
+import com.teodoradobreva.mongodb.service.UsersService;
 import com.teodoradobreva.mongodb.util.HirundoUtilities;
 
 @Path("/login")
 public class LoginRest {
 
 	private LoginService loginService;
-	private UserService userService;
 		
 	@InjectParam
 	public void setLoginService(LoginService loginService) {
 		this.loginService = loginService;
-	}	
-	
-	@InjectParam
-	public void setUserService(UserService userService) {
-		this.userService = userService;
 	}
 	
 	@POST
@@ -45,13 +39,6 @@ public class LoginRest {
 		Authentication auth = 
 			  new UsernamePasswordAuthenticationToken(user, null, grantedAuthorities);
 		SecurityContextHolder.getContext().setAuthentication(auth);*/
-	}
-	
-	@GET
-	@Path("/loggedIn")
-	public String getLoggedInUser() {
-		Gson gson = new Gson();
-		return gson.toJson(userService.getUserByUsername("tgdobreva")); //TODO
 	}
 
 }
