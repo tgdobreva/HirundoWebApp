@@ -6,7 +6,9 @@ import java.util.List;
 
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Indexed;
 import org.mongodb.morphia.annotations.Property;
+import org.mongodb.morphia.utils.IndexDirection;
 
 @Entity(value = "users")
 public class User {
@@ -14,7 +16,7 @@ public class User {
 	@Id
 	private String username;
 
-	//TODO add index
+	@Indexed(value=IndexDirection.DESC, name="email", unique = true, dropDups=true) 
 	private String email;
 
 	private String password;
@@ -22,7 +24,6 @@ public class User {
 	
 	private Date registrationDate;
 	
-	//TODO add index
 	@Property("users_followed")
 	private List<String> usersFollowed;
 

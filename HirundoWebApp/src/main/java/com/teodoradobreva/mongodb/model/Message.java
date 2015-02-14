@@ -8,7 +8,9 @@ import java.util.regex.Pattern;
 
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Indexed;
 import org.mongodb.morphia.annotations.Property;
+import org.mongodb.morphia.utils.IndexDirection;
 
 @Entity(value = "messages")
 public class Message {
@@ -22,12 +24,12 @@ public class Message {
 	@Property("published_place")
 	private String publishedPlace;
 
-	// TODO add index
 	@Property("published_date")
+	@Indexed(value=IndexDirection.DESC, name="published", unique = false, dropDups=false) 
 	private Date publishedDate;
 
-	// TODO add index
 	@Property("hashtags")
+	@Indexed(value=IndexDirection.DESC, name="hashtags", unique = false, dropDups=false) 
 	List<String> hashtags;
 
 	public Message() {

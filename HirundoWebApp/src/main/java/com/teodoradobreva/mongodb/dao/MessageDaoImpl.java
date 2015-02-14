@@ -33,15 +33,16 @@ public class MessageDaoImpl extends BasicDAO<Message, ObjectId> implements
 				.equal(user.getUsername()).get();
 		List<String> usersFollowed = user.getUsersFollowed();
 		List<Message> messages = new ArrayList<Message>();
-		if (hashtags != null && !hashtags.isEmpty()) {
-			// TODO
-		} else {
-			Query<Message> getLastMessagesQuery = this.createQuery()
-					.field("author").in(usersFollowed).limit(count)
-					.order("-published_date");
-			messages = this.find(getLastMessagesQuery).asList();
+		if (!usersFollowed.isEmpty()) {
+			if (hashtags != null && !hashtags.isEmpty()) {
+				// TODO
+			} else {
+				Query<Message> getLastMessagesQuery = this.createQuery()
+						.field("author").in(usersFollowed).limit(count)
+						.order("-published_date");
+				messages = this.find(getLastMessagesQuery).asList();
+			}
 		}
-
 		return messages;
 	}
 

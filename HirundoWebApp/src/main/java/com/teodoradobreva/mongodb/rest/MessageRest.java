@@ -36,7 +36,9 @@ public class MessageRest {
 		if (content.length() > HirundoUtilities.MAXIMUM_MESSAGE_SIZE) {
 			throw new MessageTooLongException();
 		}
-		place = place.trim();
+		if (place != null) {
+			place = place.trim();
+		}
 		Message message = new Message(author, content, place, new Date());
 		messageService.insert(message);
 	}

@@ -45,7 +45,7 @@ public class UsersRest {
 	public void follow(@FormParam("username") String username) {
 		User follower = new User("tgdobreva@gmail.com", "tgdobreva", "123");
 		User toFollow = new User();
-		follower.setUsername(username);
+		toFollow.setUsername(username);
 		usersService.follow(follower, toFollow);
 	}
 	
@@ -54,7 +54,7 @@ public class UsersRest {
 	public void unfollow(@FormParam("username") String username) {
 		User follower = new User("tgdobreva@gmail.com", "tgdobreva", "123");
 		User followed = new User();
-		follower.setUsername(username);
+		followed.setUsername(username);
 		usersService.unfollow(follower, followed);
 	}
 }

@@ -2,7 +2,6 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <meta charset="utf-8">
@@ -12,6 +11,7 @@
     <meta name="author" content="">
 
     <title>Hirundo</title>
+
 
     <jsp:include page="css.jsp" />
 
@@ -68,10 +68,8 @@
 							</div>
 						</div>
 					</div>
-                </div>
                 
-                <div class="col-lg-4">
-                	<div class="panel panel-green">
+                	<div class="panel panel-primary">
 						<div class="panel-heading"> Followed </div>
 						<div class="panel-body" style="overflow-y:auto; height:300px;">
 		                	<div class="form-group" data-bind="foreach: {data: usersFollowed, as: 'user'}">
@@ -88,7 +86,7 @@
 										<i class="fa fa-times-circle"  data-bind="visible: !user.verified"> </i>
 									</span>
 								</div>
-								<button class="btn btn-success"> Unfollow </button>
+								<button class="btn btn-primary" data-bind="click: $parent.unfollow"> Unfollow </button>
 								<hr/>
 							</div>
 						</div>
@@ -115,8 +113,7 @@
 	   		self.hashtags = ko.observableArray();
 		    
 	   		self.follow = function(user) {
-	   			debugger;
-	   			var username = user.username();
+	   			var username = user.username;
 	   			$.ajax({
 					type: "POST",
 					url: "/HirundoWebApp/rest/users/follow",
@@ -127,6 +124,7 @@
 					success: function(data) {
 						self.usersFollowed.push(user);
 			   			self.usersNotFollowed.remove(user);
+			   			loadTimeline();
 					},
 					error: function(jqXHR, textStatus, errorThrown) {
 						alert("Error following user!");
@@ -135,8 +133,7 @@
          	}
 			
 	   		self.unfollow = function(user) {
-	   			debugger;
-	   			var username = user.username();
+	   			var username = user.username;
 	   			$.ajax({
 					type: "POST",
 					url: "/HirundoWebApp/rest/users/unfollow",
@@ -147,6 +144,7 @@
 					success: function(data) {
 						self.usersNotFollowed.push(user);
 			   			self.usersFollowed.remove(user);
+			   			loadTimeline();
 					},
 					error: function(jqXHR, textStatus, errorThrown) {
 						alert("Error unfollowing user!");
