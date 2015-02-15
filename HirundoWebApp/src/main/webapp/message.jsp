@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -26,19 +27,26 @@
 					<div class="panel panel-primary">
                     	<div class="panel-heading"> Write new message </div>
                     	<div class="panel-body">
-		                    <form id="messageForm" role="form" method=post>
-								<div class="form-group">
-									<label>Message: </label>
-									<input id="message" class="form-control" placeholder="Enter message" required
-										data-bind='value: message' maxlength="140">
-								</div>
-								
-								<div class="form-group">
-									<label>Place: </label>
-									<input id="place" class="form-control" placeholder="Enter place"
-										data-bind='value: place'>
-								</div>
-	                        	<button class="btn btn-primary">Submit</button>
+		                    <form id="messageForm" role="form" method=post action="/HirundoWebApp/rest/messages/insert">
+		                    	<fieldset>
+			                    	<div class="form-group">
+		                            	<span>${param.error}</span>
+	                                </div>
+									<div class="form-group">
+										<label>Message: </label>
+										<input id="message" class="form-control" placeholder="Enter message" required
+											data-bind='value: message' maxlength="140" name="message">
+									</div>
+									
+									<div class="form-group">
+										<label>Place: </label>
+										<input id="place" class="form-control" placeholder="Enter place"
+											data-bind='value: place' name="place">
+									</div>
+									<div class="form-group">
+		                        		<button class="btn btn-primary">Submit</button>
+		                        	</div>
+	                        	</fieldset>
 							</form>
 						</div>
 					</div>
@@ -62,10 +70,6 @@ $(document).ready(function()  {
 	ko.applyBindings(model);
 	
 	$('#messageForm').submit(function(event) {
-
-		event.preventDefault();
-		event.stopPropagation();
-
 		var message = model.message().trim();
 		if (!message) {
 			alert("Cannot submit empty message!")
@@ -75,35 +79,8 @@ $(document).ready(function()  {
 			alert("Message must be maximum 140 symbols!");
 			return false;
 		}
-		saveMessage();
    	}); 
-	
-	var saveMessage = function() {
-		var message = model.message().trim();
-		var place = model.place().trim();
-		place = place ? place : undefined;
-		$.ajax({
-			type: "POST",
-			url: "/HirundoWebApp/rest/messages/insert",
-			data: {
-				message: message,
-				place: place,
-			},
-			dataType: "json",
-			success: function() {
-				clearMessage();
-				alert("Message added successfully!");
-			},
-			error: function(jqXHR, textStatus, errorThrown) {
-				alert(jqXHR.responseText);
-			}
-			});
-	}
-	
-	var clearMessage = function() {
-		model.message("");
-		model.place("");
-	}
+
 });
 </script>
 </html>

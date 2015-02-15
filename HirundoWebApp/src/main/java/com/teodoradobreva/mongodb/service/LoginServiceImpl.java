@@ -12,10 +12,10 @@ public class LoginServiceImpl implements LoginService {
 	public void setLoginDao(LoginDao loginDao) {
 		this.loginDao = loginDao;
 	}
-	
+
 	@Override
-	public boolean verify(User user) {
-		return loginDao.verify(user);
+	public User getUser(String email, String password) {
+		return loginDao.getUser(email, password);
 	}
 
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -23,8 +24,11 @@
                         <h3 class="panel-title">Sign In</h3>
                     </div>
                     <div class="panel-body">
-                        <form id="loginForm" role="form" method=post>
+                        <form id="loginForm" role="form" method=post action="/HirundoWebApp/rest/login/login">
                             <fieldset>
+                            	<div class="form-group">
+	                            	<span>${param.error}</span>
+                                </div>
                                 <div class="form-group">
                                     <input type="email" autofocus="" name="email" placeholder="E-mail" 
                                     	class="form-control" data-bind='value: email' required>
@@ -62,29 +66,6 @@
 		$('#registerBtn').click(function() {
 			window.location.href = "register.jsp";
 		});
-		
-		$('#loginForm').submit(function(event) {
-			event.preventDefault();
-			login();
-		});
-		
-		var login = function() {
-			$.ajax({
-				type: "POST",
-				url: "/HirundoWebApp/rest/login/login",
-				data: {
-					email: model.email(),
-					password: model.password(),
-				},
-				dataType: "json",
-				success: function() {
-					window.location.href = "index.jsp";
-				},
-				error: function(jqXHR, textStatus, errorThrown) {
-					alert(jqXHR.responseText);
-				}
-				});
-		}
 		
 	});
 	  

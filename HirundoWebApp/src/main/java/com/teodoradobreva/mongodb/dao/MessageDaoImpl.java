@@ -33,7 +33,7 @@ public class MessageDaoImpl extends BasicDAO<Message, ObjectId> implements
 				.equal(user.getUsername()).get();
 		List<String> usersFollowed = user.getUsersFollowed();
 		List<Message> messages = new ArrayList<Message>();
-		if (!usersFollowed.isEmpty()) {
+		if (usersFollowed != null && !usersFollowed.isEmpty()) {
 			if (hashtags != null && !hashtags.isEmpty()) {
 				// TODO
 			} else {

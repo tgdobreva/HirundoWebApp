@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -23,8 +24,12 @@
                         <h3 class="panel-title">Sign In</h3>
                     </div>
                     <div class="panel-body">
-                        <form id="registerForm" role="form" method=post>
+                        <form id="registerForm" role="form" method=post 
+                        	action="/HirundoWebApp/rest/registration/register">
                             <fieldset>
+                            	<div class="form-group">
+	                            	<span>${param.error}</span>
+                                </div>
                                 <div class="form-group">
                                     <input type="email" autofocus="" name="email" placeholder="E-mail" class="form-control" required
                                     	data-bind='value: email'>
@@ -74,32 +79,10 @@
 		ko.applyBindings(model);
 		
 		$('#registerForm').submit(function(event) {
-
-			event.preventDefault();
-			
 			if (!model.passwordsEqual()) {
 				alert("Passwords are not equal!");
 				return false;
 			}
-			
-			$.ajax({
-				type: "POST",
-				url: "/HirundoWebApp/rest/registration/register",
-				data: {
-					email: model.email(),
-					username: model.username(),
-					password: model.password(),
-					repeatedPassword: model.repeatedPassword(),
-				},
-				dataType: "json",
-				success: function() {
-					window.location.href = "index.jsp";
-				},
-				error: function(jqXHR, textStatus, errorThrown) {
-					alert(jqXHR.responseText);
-				}
-				});
-			
 	   	}); 
    });
 	  

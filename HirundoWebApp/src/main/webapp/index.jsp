@@ -40,6 +40,12 @@
 								<span data-bind="html: timelineMessage.content" > </span>
 							</span>
 						</div>
+						<div class="form-group" data-bind='visible: timelineMessage.publishedPlace.length > 0'>
+							<span>
+								<span><strong>Place: </strong></span>
+								<span data-bind="html: timelineMessage.publishedPlace" > </span>
+							</span>
+						</div>
 						<hr/>
 					</div>
 					
@@ -173,7 +179,8 @@
 				success: function(data) {
 					var regex = /#(\w+)/g;
 			    	for (var index in data) {
-			    		data[index].content = data[index].content.replace(regex, "<a>#$1</a>");
+			    		data[index].content = data[index].content.replace(
+			    				regex, "<a>#$1</a>");
 			    	}
 					model.timelineMessages(data);
 				},
@@ -210,6 +217,7 @@
 				}
 				});
 		}
+		
    });
 </script>
 

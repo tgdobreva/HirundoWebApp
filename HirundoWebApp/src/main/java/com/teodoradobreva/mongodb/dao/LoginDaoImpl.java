@@ -15,14 +15,14 @@ public class LoginDaoImpl extends BasicDAO<User, ObjectId> implements LoginDao {
 		super(mongoClient, morphia, dbName);
 		this.ensureIndexes();
 	}
-	
+
 	@Override
-	public boolean verify(User user) {
-		String hashedPassword = HirundoUtilities.getHash(user.getPassword());
-		Query<User> query = this.createQuery().field("email").equal(user.getEmail())
+	public User getUser(String email, String password) {
+		String hashedPassword = HirundoUtilities.getHash(password);
+		Query<User> query = this.createQuery().field("email").equal(email)
 				.field("password").equal(hashedPassword);
-		boolean isRegistered = this.count(query) > 0;
-		return isRegistered;
+		User user = this.findOne(query);
+		return user;
 	}
 
 }
